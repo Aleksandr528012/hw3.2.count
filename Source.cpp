@@ -3,7 +3,7 @@
 
 class Counter {
 
-    int num{ 1 };
+    int num{};
 
 public:
 
@@ -11,48 +11,52 @@ public:
     void set_num(int value) { if (value > 0) num = value; };
     int incr() { return num++; };
     int decr() { return num--; };
-    std::string val;
-    std::string action;
+    
 
     Counter(int num) {};
-    Counter() { 1; };
+    Counter() { num = 1; };
+};
 
     void print_counter() {
-
-        std::cout << "Вы хотите указать начальное значение счётчика? Введите да или нет : ";
-        std::cin >> val;
-
-        if (val == "да") {
+        std::string q;
+        std::string action;
+        int count;
+        
+        Counter c;
+        std::cout << "Вы хотите указать начальное значение счётчика? Введите да или нет: ";
+        std::cin >> q;
+        if (q == "да") {
             std::cout << "Введите начальное значение счётчика: ";
-            std::cin >> num;
-        };
-
-        while (action != "х") {
+            std::cin >> count;
+            c = Counter(count);
+            c.set_num(count);
+        }
+        
+        do {
             std::cout << "Введите команду ('+', '-', '=' или 'x'): ";
             std::cin >> action;
+
             if (action == "+") {
-                incr();
+                c.incr();
             }
             else if (action == "-") {
-                decr();
+                c.decr();
             }
             else if (action == "=") {
-                std::cout << "" << num << std::endl;
+                std::cout << "" << c.get_num() << std::endl;
             }
-            else if (action == "х") {
-                std::cout << "До свидания! " << std::endl;
-                return;
-            }
+        } 
+        while (action != "х"); {
+            std::cout << "До свидания! " << std::endl;
         };
+        
     };
-};
+
 
 
 int main(int argc, char** atgv) {
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
 
-    Counter count;
-
-    count.print_counter();
+    print_counter();
 };
